@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Short Topic / Short Writing / Great Practice.">
+    <meta name="author" content="Strovosky">
+    <title>{% block title %}PostAnything{% endblock title %}</title>
+
+    <!-- font icons -->
+    <link rel="stylesheet" href="../assets/vendors/themify-icons/css/themify-icons.css">
+
+    <!-- Bootstrap + Creative Design main styles -->
+	<link rel="stylesheet" href="../assets/css/creative-design.css">
+
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
+    
+    {% block navbar %}
+    <!-- Page Navbar -->
+    <nav id="scrollspy" class="navbar page-navbar navbar-light navbar-expand-md fixed-top" data-spy="affix" data-offset-top="20">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'blog_home' %}"><strong class="text-primary">Post</strong> <span class="text-dark">Anything</span></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    {% if user.username|length == 0 %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="register">Sign Up</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login">Sign In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#teachers">Teachers</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    {% if user.username|length > 0 %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'update_user' %}">Update Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item ml-md-4">
+                        <a class="nav-link btn btn-primary" href="{% url 'login' %}">Post Anything</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav><!-- End of Page Navbar -->   
+    {% endblock navbar %}
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{message.tags}}" >
+                {{message}}
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    {% block main %}
+    <!-- Page Header -->
+    <header id="home" class="header">
+        <div class="overlay"></div>
+        <div class="header-content">
+            <p>Best place to improve your writing.</p>
+            <h6>Post Anything</h6> 
+            <button class="btn btn-outline-light">Start Posting</button> 
+        </div>      
+    </header><!-- End of Page Header -->
+    {% endblock main %}
+
+    {% block about %}
+    <!-- About Section -->
+    <section id="about">
+        <!-- Container -->
+        <div class="container">
+            <!-- About wrapper -->
+            <div class="about-wrapper">
+                <div class="after"><h1>About Us</h1></div>
+                <div class="content">
+                    <h5 class="title mb-3">Short Reading / Short Writing / Big Practice.</h5>
+                    <!-- row -->
+                    <div class="row">
+                        <div class="col">
+                            <p>Many times we want to improve our writing in English, but it's hard to know what to write about, where to do it, and specially to find and interesting topic to write about.</p>
+                            <p><b>Interesting Writing Topics Every Day.</b></p>
+                            <p>In Post Anything you will have a short interesting topic, question or picture of which you can express your opinion in a post, so you don't have to think every day what you're going to write about.</p>
+                            <p>Keep in mind the idea is that you write a short comment about the topic. People will read your comment, give you some feedback about your grammar, and also post a comment about what you comment.</p>
+                        </div>
+                        <div class="col">
+                            <p>By practicing reading and writing posts, after a period of 2 to 3 months you're guaranteed to have improved both of those skills.</p>
+                            <p><b>What if I don't know how to write very well!</b></p>
+                            <p>Don't worry about that, remember that all of us are here to learn. Still, in your profile you can specify your English level so people can give you feedback according to what your level is.</p>
+                        </div>
+                    </div><!-- End of Row -->   
+                    <a href="javascript:void(0)">Read More...</a>
+                </div>
+            </div><!-- End of About Wrapper -->         
+        </div>  <!-- End of Container-->        
+    </section><!--End of Section -->
+    {% endblock about %}
+
+    {% block about_two %}
+    <!-- section -->
+    <section>
+        <!-- Container -->
+        <div class="container">
+            <!-- Row -->
+            <div class="row justify-content-between align-items-center">                
+                <div class="col-md-5">
+                    <h6 class="title mb-3">What type of topics will I write about?.</h6>
+                    <p>All of the topics in Post Anything are interesting topics of what is happening at the moment. They can also be thought provoking questions, or a image which you have to consider or describe.</p>
+                    <!--<p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur, amet!</p>-->
+                    <!--<button class="btn btn-outline-primary btn-sm">Learn More</button>-->
+
+                </div>
+                <div class="col-md-6">
+                    <div class="img-wrapper">
+                        <div class="after right"></div>
+                        <img src="../assets/imgs/img-2.jpg" class="w-100" alt="About Us">
+                    </div>                      
+                </div>
+            </div><!-- End of Row -->           
+        </div><!-- End of Container-->      
+    </section><!-- End of Section -->
+    {% endblock about_two %}
+
+    {% block video %}
+    <!-- Features Section -->
+    <section class="has-bg-img" id="features">
+        <div class="overlay"></div>
+        <!-- Button trigger modal -->
+        <a data-toggle="modal" href="#exampleModalCenter">
+            <i></i>
+        </a>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                     <iframe width="100%" height="450px" class="border-0" 
+                    src="https://www.youtube.com/embed/tgbNyZ7vqY?controls=0">
+                    </iframe>
+                </div>
+            </div>
+        </div><!-- End of Modal -->     
+    </section><!-- End of features Section -->  
+    {% endblock video %}
+
+    {% block english_teachers %}
+    <!-- Testmonial Section -->
+    <section class="text-center pt-5" id="teachers">
+        <!-- Container -->
+        <div class="container">
+            <h3 class="mt-3 mb-5 pb-5">English Teachers</h3>
+            <!-- Row -->
+            <div class="row">
+                <div class="col-sm-10 col-md-4 m-auto">
+                    <div class="testmonial-wrapper">
+                        <img src="../assets/imgs/avatar1.jpg" alt="Teacher Image">
+                        <h6 class="title mb-3">Sara</h6>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium voluptates voluptatem eum nisi cumque veniam est id reprehenderit atque rerum, cum sit perspiciatis, harum cupiditate nostrum quibusdam perferendis accusamus, illo.</p>
+                    </div>
+                </div>
+                <div class="col-sm-10 col-md-4 m-auto">
+                    <div class="testmonial-wrapper">
+                        <img src="../assets/imgs/avatar2.png" alt="Teacher Image">
+                        <h6 class="title mb-3">Strovosky</h6>
+                        <p>English teacher and programmer. In love to designing activities for my students to learn in different ways.</p>
+                    </div>
+                </div>
+                <div class="col-sm-10 col-md-4 m-auto">
+                    <div class="testmonial-wrapper">
+                        <img src="../assets/imgs/avatar3.jpg" alt="Teacher Image">
+                        <h6 class="title mb-3">Sofia</h6>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium voluptates voluptatem eum nisi cumque veniam est id reprehenderit atque rerum, cum sit perspiciatis, harum cupiditate nostrum quibusdam perferendis accusamus, illo.</p>
+                    </div>
+                </div>
+            </div><!-- end of Row -->           
+        </div><!-- End of Cotanier -->  
+    </section><!-- End of Testmonial Section -->
+    {% endblock english_teachers %}
+
+    {% block study_with_us %}
+    <!-- Section -->
+    <section class="has-bg-img text-center text-light height-auto" style="background-image: url(../assets/imgs/bg-img-2.jpg)">
+        <h1 class="display-4">DO YOU WANT TO STUDY WITH US?.</h1>
+    </section><!-- End of Section -->
+    
+
+    <!-- Contact Section -->
+    <section id="contact" class="text-center">
+        <!-- container -->
+        <div class="container">
+            <h1>CONTACT US</h1>
+            <p class="mb-5">If you have some Questions, are interested in English classes or need Help! Please Contact Us! <br> 
+            We know how to help you!</p>
+            
+            <!-- Contact form -->
+            <form class="contact-form col-md-11 col-lg-9 mx-auto">
+                <div class="form-row">
+                    <div class="col form-group">
+                        <input type="text" class="form-control" placeholder="Name">
+                    </div>
+                    <div class="col form-group">
+                        <input type="email" class="form-control" placeholder="Email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <textarea name="" id="" cols="30" rows="5" class="form-control" placeholder="Your Message"></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary btn-block" value="Send Message">
+                </div>
+            </form><!-- End of Contact form -->         
+        </div><!-- End of Container-->      
+    </section><!-- End of Contact Section -->
+    {% endblock study_with_us %}
+
+    <!-- Section -->
+    <section class="pb-0">
+        <!-- Container -->
+        <div class="container">
+            <!-- Pre footer -->
+            <div class="pre-footer">
+                <ul class="list">
+                    <li class="list-head">
+                        <h6 class="font-weight-bold">ABOUT US</h6>
+                    </li>
+                    <li class="list-body">
+                        <p>We're a group of teachers with the firm intent of helping people learn and speak English.</p>
+                        <a href="#"><strong class="text-primary">Post</strong> <span class="text-dark">Anything</span></a>
+                    </li>
+                </ul>
+                <ul class="list">
+                    <li class="list-head">
+                        <h6 class="font-weight-bold">USEFUL LINKS</h6>
+                    </li>
+                    <li class="list-body">
+                        <div class="row">
+                            <div class="col">
+                                <a href="#">Link 1</a>
+                                <a href="#">Link 2</a>
+                                <a href="#">Link 3</a>
+                                <a href="#">Link 4</a>
+                            </div>
+                            <div class="col">
+                                <a href="#">Link 5</a>
+                                <a href="#">Link 6</a>
+                                <a href="#">Link 7</a>
+                                <a href="#">Link 8</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="list">
+                    <li class="list-head">
+                        <h6 class="font-weight-bold">CONTACT INFO</h6>
+                    </li>
+                    <li class="list-body">
+                        <p>Contact us and we'll get back to you within 24 hours.</p>
+                        <p><i class="ti-location-pin"></i> 12345 Fake ST NoWhere AB Country</p>
+                        <p><i class="ti-email"></i>  info@website.com</p>
+                        <div class="social-links">
+                            <a href="javascript:void(0)" class="link"><i class="ti-facebook"></i></a>
+                            <a href="javascript:void(0)" class="link"><i class="ti-twitter-alt"></i></a>
+                            <a href="javascript:void(0)" class="link"><i class="ti-google"></i></a>
+                            <a href="javascript:void(0)" class="link"><i class="ti-pinterest-alt"></i></a>
+                            <a href="javascript:void(0)" class="link"><i class="ti-instagram"></i></a>
+                            <a href="javascript:void(0)" class="link"><i class="ti-rss"></i></a>
+                        </div>
+                    </li>
+                </ul> 
+            </div><!-- End of Pre footer -->
+
+            <!-- foooter -->
+            <footer class="footer">            
+                <p>Copyright <script>document.write(new Date().getFullYear())</script> &copy; <a href="http://www.devcrud.com">DevCRUD</a></p>
+            </footer><!-- End of Footer-->  
+            
+        </div><!--End of Container -->      
+    </section><!-- End of Section -->
+
+    <!-- core  -->
+    <script src="../assets/vendors/jquery/jquery-3.4.1.js"></script>
+    <script src="../assets/vendors/bootstrap/bootstrap.bundle.js"></script>
+
+    <!-- bootstrap affix -->
+    <script src="../assets/vendors/bootstrap/bootstrap.affix.js"></script>
+
+    <!-- Creative Design js -->
+    <script src="../assets/js/creative-design.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Topic{% endblock title %}
+
+{% block main %}
+<!-- Page Header -->
+<header id="home" class="header">
+    <div class="overlay"></div>
+    <div class="header-content">
+        {% if user.profile.topics_read|length == 0 %}
+            <h3>{{topics.first().content}}</h3>
+        {% else %}
+            {% for topic in topics %}
+                {% if not topic in user.profile.topics_read %}
+                    <h3>{{topic.content}}</h3>
+                {% endif %}
+            {% endfor %}
+        {% endfor %} 
+        <button class="btn btn-outline-light">What Do You Think?</button> 
+    </div>      
+</header><!-- End of Page Header -->
+{% endblock main %}

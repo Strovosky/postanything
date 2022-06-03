@@ -1,0 +1,71 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Login{% endblock title %}
+
+{% block navbar %}
+<!-- Page Navbar -->
+<nav id="scrollspy" class="navbar page-navbar navbar-light navbar-expand-md fixed-top" data-spy="affix" data-offset-top="20">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'blog_home' %}"><strong class="text-primary">Post</strong> <span class="text-dark">Anything</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'blog_home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">Sign Up</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#testmonial">Testimonial</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav><!-- End of Page Navbar -->   
+{% endblock navbar %}
+
+{% block main %}
+<!-- Page Header -->
+<header id="home" class="header">
+    <div class="overlay"></div>
+    <div class="header-content">
+        <p>Best place to improve your writing.</p>
+        <h6>Post Anything</h6> 
+        <button class="btn btn-outline-light">Start Posting</button> 
+    </div>      
+</header><!-- End of Page Header -->
+{% endblock main %}
+
+{% load crispy_forms_tags %}
+
+{% block about %}
+<section id="about">
+    <div class="container">
+        <div class="about-wrapper">
+            <label><h4>Sign In</h4></label>
+            <form method="post">
+                {% csrf_token %}
+                {{form|crispy}}
+                <p></p>
+                <button type="submit" class="btn btn-secondary">Sign In</button>
+                <p></p>
+                <p>Don't have an account yet. Create one <a href="{% url 'register' %}">here</a>.</p>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock about %}
+{% block about_two %}{% endblock %}
+{% block video %}{% endblock %}
+{% block english_teachers %}{% endblock %}
+{% block study_with_us %}{% endblock study_with_us %}

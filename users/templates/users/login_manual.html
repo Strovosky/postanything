@@ -1,0 +1,26 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Login{% endblock title %}
+
+{% block main %}
+<!-- Page Header -->
+<header id="home" class="header">
+    <div class="overlay"></div>
+    <div class="header-content">
+        <form method="post">
+            {% csrf_token %}
+            <label for="username">
+                <span>Username</span>
+                <input type="text" id="username" name="username" placeholder="Your Username" />
+            </label>
+            <p></p>
+            <label for="password">
+                <span>Password</span>
+                <input type="password" id="password" name="password" placeholder="Your Password" />
+            </label>
+            <p></p>
+            <button type="submit" class="btn btn-outline-light">Log in</button>
+        </form>  
+    </div>      
+</header><!-- End of Page Header -->
+{% endblock main %}
