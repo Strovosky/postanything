@@ -1,7 +1,12 @@
 from django.shortcuts import render
+
+# For Class-based Views
 from django.views.generic import DetailView
-from .models import Topics, Comments
-from django.contrib.auth.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+# Models
+from .models import Topics
+
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -9,7 +14,7 @@ from django.contrib.auth.decorators import login_required
 def home(request):
     return render(request, 'blog/index.html')
 
-class TopicDetailView(DetailView):
+class TopicDetailView(LoginRequiredMixin, DetailView):
     model = Topics
     template_name: str = "blog/topic.html"
 

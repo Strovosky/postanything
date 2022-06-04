@@ -27,7 +27,7 @@ urlpatterns = [
     path('', include('blog.urls')),
     path('register/', view=register, name='register'),
     #path('login/', view=LoginView.as_view(template_name="users/login.html"), name='login'),
-    path('login/', view=LoginView.as_view(template_name="users/login.html"), name='login'),
+    path('login/', view=login_view, name='login'),
     path('logout/', view=LogoutView.as_view(template_name="users/logout.html"), name='logout'),
     path('update_user/', view=update_user, name='update_user'),
 ]

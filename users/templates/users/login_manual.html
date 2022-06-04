@@ -6,9 +6,12 @@
 <!-- Page Header -->
 <header id="home" class="header">
     <div class="overlay"></div>
-    <div class="header-content">
-        <form method="post">
+    <div class="header-content" id="login">
+        <form method="post" class="form-horizontal" name="LoginForm">
             {% csrf_token %}
+            {% if next %}
+                <input type="hidden" name="next" value="{{next}}" />
+            {% endif %}
             <label for="username">
                 <span>Username</span>
                 <input type="text" id="username" name="username" placeholder="Your Username" />
