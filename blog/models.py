@@ -32,5 +32,5 @@ class Encouragements(Model):
     date_created = DateTimeField(auto_now=True)
 
     def __str__(self) -> str:
-        return f"{self.date_created}"
+        return f"{self.content}"
 

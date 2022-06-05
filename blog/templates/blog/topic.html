@@ -7,8 +7,22 @@
 <header id="home" class="header">
     <div class="overlay"></div>
     <div class="header-content">
-            <h3>{{object.content}}</h3>
-        <button class="btn btn-outline-light">What Do You Think?</button> 
-    </div>      
+        <h3>{{topic.content}}</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{form}}
+            <button type="submit" class="btn btn-outline-light" >What Do You Think?</button>
+        </form>
+    </div>
 </header><!-- End of Page Header -->
+{% for comment in topic_comments %}
+<section id="about">
+    <div class="container">
+        <div class="about-wrapper">
+            {{comment.content}}
+        </div>
+    </div>
+</section>
+{% endfor %}
+
 {% endblock main %}

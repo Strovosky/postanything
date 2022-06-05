@@ -25,7 +25,8 @@ def register(request):
         form = RegistrationForm()
         return render(request, "users/register.html", {"form":form})
 
-
+# We have to create a function view instead of the built-in Login view
+# because we want to redirect to a very specifi url with a pk as an argument.
 def login_view(request):
     if request.method == "POST":
         # Specifying data= is IMPORTANT here cuz request.POST is not the first paramether for this class.
@@ -37,7 +38,7 @@ def login_view(request):
             login(request, user)
             new_topic = None
             # If user has no topics read, just asign the first one.
-            if len(user.profile.topics_read.all()) == 0:
+            if user.profile.topics_read.count() == 0:
                 new_topic = Topics.objects.all().first()
                 user.profile.topics_read.add(new_topic)
                 user.profile.save()
@@ -50,21 +51,20 @@ def login_view(request):
                 # If the topic is not in all the topics, make it the topic of the day
                 # and save it to topics read.
                 for topic in Topics.objects.all():
-                    print("passed for")
                     if topic not in user.profile.topics_read.all():
-                        print("There is a topic not in topics_read")
-                        print(f"The topic is {topic}")
                         new_topic = topic
                         user.profile.topics_read.add(new_topic)
                         user.profile.save()
-                        print("Topic got to be")
                         break
         else:
+            # This is important so in case the user types a wrong username or password
+            # the page won't crash.
             form = AuthenticationForm()
             messages.error(request, "Incorrect Username or Password.")
             return render(request, "users/login_manual.html", {"form":form})
-        return redirect(to=f"/topic/{new_topic.pk}/")
+        return redirect(to=f"/topic/{new_topic.pk}/{user.id}")
     else:
+        # If it is a GET request.
         form = AuthenticationForm()
         return render(request, "users/login_manual.html", {"form":form})
 
