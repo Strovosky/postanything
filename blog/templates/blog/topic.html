@@ -11,7 +11,7 @@
         <form method="post">
             {% csrf_token %}
             {{form}}
-            <button type="submit" class="btn btn-outline-light" >What Do You Think?</button>
+            <button type="submit" class="btn btn-outline-light" >Comment</button>
         </form>
     </div>
 </header><!-- End of Page Header -->
@@ -19,10 +19,27 @@
 <section id="about">
     <div class="container">
         <div class="about-wrapper">
-            {{comment.content}}
-        </div>
-    </div>
-</section>
-{% endfor %}
+            <div class="after"><h1>{{comment.author}}</h1></div>
+            <div class="content">
+                <h5 class="title mb-3">{{comment.date_created}}</h5>
+                <div class="row">
+                    <div class="col">
+                        <p><b>{{comment.content}}</b></p>
+                    </div>
+                </div>
+                <p >{{comment.num_likes}} likes</p>
+            </div>
+        </div><!-- End of About Wrapper -->         
+    </div>  <!-- End of Container-->        
+</section><!--End of Section -->
 
+{% endfor %}
 {% endblock main %}
+
+
+{% block about %}{% endblock %}
+{% block about_two %}{% endblock %}
+{% block video %}{% endblock %}
+{% block english_teachers %}{% endblock %}
+{% block study_with_us %}{% endblock %}
+
