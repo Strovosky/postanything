@@ -1,3 +1,4 @@
+from urllib import response
 from django.shortcuts import render
 
 # For Class-based Views
@@ -5,11 +6,11 @@ from django.views.generic import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Models
-from .models import Topics, Comments
+from .models import Subcomments, Topics, Comments
 from django.contrib.auth.models import User
 
 # Forms
-from .forms import NewComment
+from .forms import NewComment, NewSubcomment
 
 # Alerts
 from django.contrib import messages
@@ -31,13 +32,20 @@ def home(request):
 def topic_detail_view(request, pk, user_id):
     if request.method == "POST":
         form = NewComment(request.POST)
+        topic = Topics.objects.get(pk=pk)
+        user = User.objects.get(id=user_id)
+        topic_comments = Comments.objects.filter(topic=topic)
+        for comment in topic.comments_set.all():
+            if request.POST.get("btn_subcomment") == str(comment.id):
+                content = request.POST.get("txt_subcomment")
+                subcomment = Subcomments.objects.create(content=content, author=user, parent_comment=comment)
+                subcomment.save()
         if form.is_valid():
-            topic = Topics.objects.get(pk=pk)
-            user = User.objects.get(id=user_id)
+            subcomments = Subcomments.objects.all()
             Comments.objects.create(content=form.cleaned_data["comment"], author=user, topic=topic)
-            topic_comments = Comments.objects.filter(topic=topic)
             messages.success(request, "Comment created")
-            return render(request, "blog/topic.html", {"form":form, "topic_comments":topic_comments, "topic":topic})
+            print("Part 1 - Good")
+        return render(request, "blog/topic.html", {"form":form, "topic_comments":topic_comments, "topic":topic})
     else:
         form = NewComment()
         topic = Topics.objects.get(pk=pk)

@@ -35,7 +35,7 @@ class Subcomments(Model):
     parent_comment = ForeignKey(to=Comments, on_delete=CASCADE)
 
     def __str__(self) -> str:
-        return f"{self.date_created}"
+        return f"{self.content}"
 
 ##########################################################
 
