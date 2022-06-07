@@ -24,6 +24,19 @@ class Comments(Model):
     def __str__(self) -> str:
         return f"{self.date_created}"
 
+#########################################################
+
+# This model will handle the subcomments made about the comments
+class Subcomments(Model):
+    content = CharField(max_length=300)
+    num_likes = IntegerField(default=0)
+    date_created = DateTimeField(auto_now=True)
+    author = ForeignKey(to=User, on_delete=CASCADE)
+    parent_comment = ForeignKey(to=Comments, on_delete=CASCADE)
+
+    def __str__(self) -> str:
+        return f"{self.date_created}"
+
 ##########################################################
 
 # This model will handle some messages left on the page to the developer.

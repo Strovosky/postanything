@@ -130,9 +130,9 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "imgs/users/")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-MEDIA_URL = "/imgs/users/"
+MEDIA_URL = "media/"
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 

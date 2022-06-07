@@ -21,6 +21,10 @@ from django.contrib.auth.decorators import login_required
 def home(request):
     return render(request, 'blog/index.html')
 
+
+###################################################################
+# Topic Views
+
 # We will use a function view instead of a class view cuz we neeed the view to handle GET and POST 
 # requests since we'll be creating comments.
 @login_required(login_url="login/")
@@ -40,12 +44,19 @@ def topic_detail_view(request, pk, user_id):
         topic_comments = Comments.objects.filter(topic=topic)
         return render(request, "blog/topic.html", {"form":form, "topic":topic, "topic_comments":topic_comments})
 
+#class TopicDetailView(LoginRequiredMixin, DetailView):
+#    model = Topics
+#    template_name: str = "blog/topic.html"
 
-class TopicDetailView(LoginRequiredMixin, DetailView):
-    model = Topics
-    template_name: str = "blog/topic.html"
+#@login_required(login_url="login/")
+#def topic_detail(request):
+#    topics = Topics.objects.all()
+#    return render(request, "blog/topic.html", {"topics": topics})
 
-@login_required(login_url="login/")
-def topic_detail(request):
-    topics = Topics.objects.all()
-    return render(request, "blog/topic.html", {"topics": topics})
+###################################################################
+# Comment Views
+
+def detail_comment(request, pk, topic_id):
+    comment = Comments.objects.get(pk=pk)
+    topic = Topics.objects.get(id=topic_id)
+    return render(request, "blog/detail_comment.html", {"comment": comment, "topic":topic})
