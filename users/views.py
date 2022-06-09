@@ -6,6 +6,9 @@ from django.contrib.auth.forms import AuthenticationForm
 # This function will let us log the user
 from django.contrib.auth import login
 
+# Django Views
+from django.views.generic import DetailView
+
 from django.contrib import messages
 from .models import Topics
 from django.contrib.auth.decorators import login_required
@@ -83,3 +86,6 @@ def update_user(request):
     return render(request, "users/update_user.html", {"user_form": user_update_form, "profile_form":profile_update_form})
 
 
+class ProfileDetailView(DetailView):
+    model = User
+    template_name: str = "users/user_profile.html"

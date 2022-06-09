@@ -35,17 +35,20 @@ def topic_detail_view(request, pk, user_id):
         topic = Topics.objects.get(pk=pk)
         user = User.objects.get(id=user_id)
         topic_comments = Comments.objects.filter(topic=topic)
+        subcomments = Subcomments.objects.all()
+
+        # If a subcomment was created
         for comment in topic.comments_set.all():
             if request.POST.get("btn_subcomment") == str(comment.id):
                 content = request.POST.get("txt_subcomment")
                 subcomment = Subcomments.objects.create(content=content, author=user, parent_comment=comment)
                 subcomment.save()
+
+        # If a comment was created
         if form.is_valid():
-            subcomments = Subcomments.objects.all()
             Comments.objects.create(content=form.cleaned_data["comment"], author=user, topic=topic)
             messages.success(request, "Comment created")
-            print("Part 1 - Good")
-        return render(request, "blog/topic.html", {"form":form, "topic_comments":topic_comments, "topic":topic})
+        return render(request, "blog/topic.html", {"form":form, "topic_comments":topic_comments, "topic":topic, "subcomments":subcomments})
     else:
         form = NewComment()
         topic = Topics.objects.get(pk=pk)

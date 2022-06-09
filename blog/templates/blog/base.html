@@ -51,6 +51,14 @@
                     </li>
                     {% if user.username|length > 0 %}
                     <li class="nav-item">
+                        <a class="nav-link" href="{% url 'topic_detail' user.profile.topics_read.all|length user.id %}">Current Topic</a>
+                    </li>
+                    <!--For some reason, My Profile, after we visit another user's profile
+                    refreshes back to their profile and the the current user's-->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'my_profile' user.pk %}">My Profile</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'update_user' %}">Update Account</a>
                     </li>
                     <li class="nav-item">

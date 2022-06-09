@@ -1,4 +1,4 @@
-from django.db.models import Model, CharField, IntegerField, DateTimeField, ForeignKey, CASCADE
+from django.db.models import Model, CharField, IntegerField, DateTimeField, ForeignKey, ManyToManyField, CASCADE
 from django.contrib.auth.models import User
 
 # Create your models here.

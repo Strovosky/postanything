@@ -1,0 +1,27 @@
+{% extends "blog/base.html" %}
+
+{% block main %}
+<!-- Page Header -->
+<header id="home" class="header">
+    <div class="overlay"></div>
+        <div class="header-content">
+            <div class="content">
+            <figure>
+                <img src="{{user.profile.profile_pic.url}}" alt="{{user.username}}">
+            </figure>
+            <h6>{{user.username}}</h6>
+            {% if user.profile.about_me != None %}
+                <p>{{user.profile.about_me}}</p>
+            {% endif %}
+            <p>Topics Read: {{user.profile.topics_read.count}}</p>
+        </div>
+    </div>      
+</header><!-- End of Page Header -->
+{% endblock main %}
+
+{% block about %}{% endblock %}
+{% block about_two %}{% endblock %}
+{% block video %}{% endblock %}
+{% block english_teachers %}{% endblock %}
+{% block study_with_us %}{% endblock %}
+

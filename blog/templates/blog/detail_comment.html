@@ -1,5 +1,38 @@
 {% extends "blog/base.html" %}
 
+{% block navbar %}
+<!-- Page Navbar -->
+<nav id="scrollspy" class="navbar page-navbar navbar-light navbar-expand-md fixed-top" data-spy="affix" data-offset-top="20">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'blog_home' %}"><strong class="text-primary">Post</strong> <span class="text-dark">Anything</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'topic_detail' topic.pk user.id %}">Current Topic</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'update_user' %}">Update Account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                </li>
+                <li class="nav-item ml-md-4">
+                    <a class="nav-link btn btn-primary" href="{% url 'login' %}">Post Anything</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav><!-- End of Page Navbar -->   
+{% endblock navbar %}
+
+
 {% block main %}
 <!-- Page Header -->
 <header id="home" class="header">
@@ -20,22 +53,24 @@
         </section><!--End of Section -->
 </header><!-- End of Page Header -->
 
-<section id="about">
-    <div class="container">
-        <div class="about-wrapper">
-            <div class="after"><h1>{{comment.author}}</h1></div>
-            <div class="content">
-                <h5 class="title mb-3">{{comment.date_created}}</h5>
-                <div class="row">
-                    <div class="col">
-                        <p><b>{{comment.content}}</b></p>
+{% for subcomment in comment.subcomments_set.all %}
+    <section id="about">
+        <div class="container">
+            <div class="about-wrapper">
+                <div class="after"><h1>{{subcomment.author.username}}</h1></div>
+                <div class="content">
+                    <h5 class="title mb-3">{{subcomment.date_created}}</h5>
+                    <div class="row">
+                        <div class="col">
+                            <p><b>{{subcomment.content}}</b></p>
+                        </div>
                     </div>
+                    <p >{{subcomment.num_likes}} likes</p>
                 </div>
-                <p >{{comment.num_likes}} likes</p>
-            </div>
-        </div><!-- End of About Wrapper -->         
-    </div>  <!-- End of Container-->        
-</section><!--End of Section -->
+            </div><!-- End of About Wrapper -->         
+        </div>  <!-- End of Container-->        
+    </section><!--End of Section -->
+{% endfor %}
 {% endblock main %}
 
 
