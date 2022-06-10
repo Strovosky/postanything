@@ -1,3 +1,6 @@
+# Python built-in views
+from datetime import date, timedelta
+
 from django.shortcuts import render, redirect
 from .forms import RegistrationForm, UserUpdateForm, ProfileUpdateForm
 
@@ -23,7 +26,7 @@ def register(request):
             username = form.cleaned_data.get("username")
             form.save()
             messages.success(request, f"Account created for {username}.")
-        return redirect(to="/")
+        return redirect(to="/login/")
     else:
         form = RegistrationForm()
         return render(request, "users/register.html", {"form":form})
@@ -39,33 +42,32 @@ def login_view(request):
             user = form.get_user()
             # This is how you log the user in.
             login(request, user)
-            new_topic = None
-            # If user has no topics read, just asign the first one.
-            if user.profile.topics_read.count() == 0:
-                new_topic = Topics.objects.all().first()
-                user.profile.topics_read.add(new_topic)
+            topic = None
+            # Means: If the user has read a topic and the topic isn't today's...
+            if user.profile.topics_read.count() == Topics.objects.all().count():
+                topic = Topics.objects.get(id=user.profile.topics_read.count())
+            elif user.profile.started_reading != None and user.profile.started_reading != date.today():
+                # I have to create a time delta to see how many days of difference.
+                days_of_difference = date.today() - user.profile.started_reading
+                for ind in range(days_of_difference.days):
+                    temp_topic = Topics.objects.get(id=ind)
+                    if temp_topic not in user.profile.topics_read:
+                        user.profile.topics_read.add(temp_topic)
                 user.profile.save()
-                return redirect(to=f"/topic/{new_topic.pk}/{user.id}")
-            # This one is important because if all the topics available have already been read by the user
-            # The following else statement will leave the new_topic variable empty.
-            elif user.profile.topics_read.count() == Topics.objects.count():
-                new_topic = Topics.objects.all().last()
+                topic = Topics.objects.get(id=user.profile.topics_read.count())
             else:
-                # If the topic is not in all the topics, make it the topic of the day
-                # and save it to topics read.
-                for topic in Topics.objects.all():
-                    if topic not in user.profile.topics_read.all():
-                        new_topic = topic
-                        user.profile.topics_read.add(new_topic)
-                        user.profile.save()
-                        break
+                first_topic = Topics.objects.get(pk=1)
+                user.profile.started_reading = date.today()
+                user.profile.topics_read.add(first_topic)
+                user.profile.save()
+                topic = Topics.objects.get(id=user.profile.topics_read.count())
+            return redirect(to=f"/topic/{topic.pk}/{user.id}")
         else:
             # This is important so in case the user types a wrong username or password
             # the page won't crash.
             form = AuthenticationForm()
             messages.error(request, "Incorrect Username or Password.")
             return render(request, "users/login_manual.html", {"form":form})
-        return redirect(to=f"/topic/{new_topic.pk}/{user.id}")
     else:
         # If it is a GET request.
         form = AuthenticationForm()

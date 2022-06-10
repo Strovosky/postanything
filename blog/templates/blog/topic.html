@@ -27,10 +27,14 @@
                         <p><b>{{comment.content}}</b></p>
                     </div>
                 </div>
-                <p >{{comment.num_likes}} likes</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <!--This button should be disabled if it was pressed-->
+                    <button type="submit" name="likes" value="like{{comment.id}}">{{comment.num_likes}} likes</button>
+                </form>
+                <p></p>
                 <!--In this case I'm using a general form just because I wanted to practice not using a Django form-->
                 <form method="post" action="#">
-                    {% csrf_token %}
                     <label for="comment">
                         <input type="text" id="comment" name="txt_subcomment" />
                         <button type="submit" name="btn_subcomment" value="{{comment.id}}" >Comment</button>

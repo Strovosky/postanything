@@ -1,4 +1,3 @@
-from urllib import response
 from django.shortcuts import render
 
 # For Class-based Views
@@ -37,6 +36,11 @@ def topic_detail_view(request, pk, user_id):
         topic_comments = Comments.objects.filter(topic=topic)
         subcomments = Subcomments.objects.all()
 
+        for comment in Comments.objects.all():
+            if request.POST.get("likes") == "like" + str(comment.id):
+                comment.num_likes += 1
+                comment.save()
+
         # If a subcomment was created
         for comment in topic.comments_set.all():
             if request.POST.get("btn_subcomment") == str(comment.id):
@@ -63,6 +67,11 @@ def topic_detail_view(request, pk, user_id):
 #def topic_detail(request):
 #    topics = Topics.objects.all()
 #    return render(request, "blog/topic.html", {"topics": topics})
+
+@login_required(login_url="login/")
+def my_read_topics(request, user_id):
+    user = User.objects.get(id=user_id)
+    return render(request, "blog/my_topics.html", {"topics":user.profile.topics_read.all()})
 
 ###################################################################
 # Comment Views

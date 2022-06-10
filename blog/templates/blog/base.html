@@ -45,16 +45,19 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#teachers">Teachers</a>
                     </li>
-                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="#contact">Contact</a>
                     </li>
+                    {% endif %}
                     {% if user.username|length > 0 %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'topic_detail' user.profile.topics_read.all|length user.id %}">Current Topic</a>
                     </li>
                     <!--For some reason, My Profile, after we visit another user's profile
                     refreshes back to their profile and the the current user's-->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'my_read_topics' user.id %}">My Topics</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'my_profile' user.pk %}">My Profile</a>
                     </li>
@@ -88,8 +91,8 @@
         <div class="overlay"></div>
         <div class="header-content">
             <p>Best place to improve your writing.</p>
-            <h6>Post Anything</h6> 
-            <button class="btn btn-outline-light">Start Posting</button> 
+            <h6>Post Anything</h6>
+            <a class="btn btn-outline-light" href="{% url 'login' %}">Start Posting</a> 
         </div>      
     </header><!-- End of Page Header -->
     {% endblock main %}

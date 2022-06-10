@@ -27,6 +27,9 @@ class Profile(Model):
     # It's set to deault=None because when created they haven't read any topics.
     # Once they've been created, I use topics_read.add
     topics_read = ManyToManyField(to=Topics, default=None, blank=True)
-    
+
+    # This field will set the day when they started reading the first topic.    
+    started_reading = DateField(default=None, null=True, blank=True)
+
     def __str__(self) -> str:
         return f"Profile: {self.user}"
