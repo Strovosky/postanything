@@ -1,13 +1,13 @@
 {% extends "blog/base.html" %}
 
 {% block main %}
-
     <!-- Page Header -->
     <header id="home" class="header">
         <div class="overlay"></div>
         <div class="header-content">
+            <img src="{{user.profile.profile_pic.url}}" alt="{{user.username}}">
             <h6>My Topics</h6> 
-            <button class="btn btn-outline-light">Start Posting</button> 
+            <a class="btn btn-outline-light" href="{% url 'topic_detail' user.profile.topics_read.count user.id %}">Start Posting</a> 
         </div>      
     </header><!-- End of Page Header -->
 

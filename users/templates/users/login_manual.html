@@ -7,6 +7,7 @@
 <header id="home" class="header">
     <div class="overlay"></div>
     <div class="header-content" id="login">
+        <h2><strong class="text-primary">Sign</strong> <span class="text-dark">In</span></h2>
         <form method="post" class="form-horizontal" name="LoginForm">
             {% csrf_token %}
             {% if next %}
@@ -27,8 +28,3 @@
     </div>      
 </header><!-- End of Page Header -->
 {% endblock main %}
-{% block about %}{% endblock about %}
-{% block about_two %}{% endblock %}
-{% block video %}{% endblock %}
-{% block english_teachers %}{% endblock %}
-{% block study_with_us %}{% endblock study_with_us %}

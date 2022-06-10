@@ -1,5 +1,5 @@
 # Python built-in views
-from datetime import date, timedelta
+from datetime import date
 
 from django.shortcuts import render, redirect
 from .forms import RegistrationForm, UserUpdateForm, ProfileUpdateForm

@@ -1,6 +1,8 @@
+from email.mime import image
 from django.db.models import Model, ImageField, CharField, ManyToManyField, OneToOneField, DateField, CASCADE
 from django.contrib.auth.models import User
 from blog.models import Topics
+from PIL import Image
 
 # Create your models here.
 
@@ -8,7 +10,7 @@ class Profile(Model):
 
     # One user can have exclusively one profile.
     user = OneToOneField(to=User, on_delete=CASCADE)
-    profile_pic = ImageField(default='default_pic.jpg', upload_to='profile_pics/')
+    profile_pic = ImageField(default='default_pic.png', upload_to='profile_pics/')
     #ENGLISH_LEVEL = (
     #    ("Basic", "Basic"),
     #    ("Intermediate", "Intermadiate"),
@@ -33,3 +35,13 @@ class Profile(Model):
 
     def __str__(self) -> str:
         return f"Profile: {self.user}"
+    
+    def save(self, *args, **kwargs):
+        super(Profile, self).save(*args, **kwargs)
+
+        img = Image.open(self.profile_pic.path)
+
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size)
+            img.save(self.profile_pic.path)

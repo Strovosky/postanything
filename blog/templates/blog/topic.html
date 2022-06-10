@@ -7,11 +7,14 @@
 <header id="home" class="header">
     <div class="overlay"></div>
     <div class="header-content">
+        <img src="{{user.profile.profile_pic.url}}" alt="{{user.username}}">
         <h3>{{topic.content}}</h3>
         <form method="post">
             {% csrf_token %}
-            {{form}}
-            <button type="submit" class="btn btn-outline-light" >Comment</button>
+            <label for="new_comment">
+                <input type="text" id="new_comment" placeholder="Write your comment..." name="new_comment" />
+            </label>
+            <button type="submit" class="btn btn-outline-light" name="btn_comment" value="comment_pressed" >Comment</button>
         </form>
     </div>
 </header><!-- End of Page Header -->
@@ -19,7 +22,7 @@
 <section id="about">
     <div class="container">
         <div class="about-wrapper">
-            <div class="after"><h1><a href="{% url 'my_profile' comment.author.pk %}">{{comment.author.username}}</a></h1></div>
+            <div class="after"><h1><a href="{% url 'my_profile' comment.author.pk %}" style="color: white;">{{comment.author.username}}</a></h1></div>
             <div class="content">
                 <h5 class="title mb-3"><a href="{% url 'detail_comment' comment.pk topic.id %}">{{comment.date_created}}</a></h5>
                 <div class="row">
@@ -30,14 +33,14 @@
                 <form method="post">
                     {% csrf_token %}
                     <!--This button should be disabled if it was pressed-->
-                    <button type="submit" name="likes" value="like{{comment.id}}">{{comment.num_likes}} likes</button>
+                    <button type="submit" class="btn btn-light" name="likes" value="like{{comment.id}}">{{comment.num_likes}} likes</button>
                 </form>
                 <p></p>
                 <!--In this case I'm using a general form just because I wanted to practice not using a Django form-->
                 <form method="post" action="#">
                     <label for="comment">
                         <input type="text" id="comment" name="txt_subcomment" />
-                        <button type="submit" name="btn_subcomment" value="{{comment.id}}" >Comment</button>
+                        <button type="submit" class="btn btn-warning" name="btn_subcomment" value="{{comment.id}}" >Comment</button>
                     </label>
                 </form>
             </div>

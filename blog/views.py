@@ -8,9 +8,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Subcomments, Topics, Comments
 from django.contrib.auth.models import User
 
-# Forms
-from .forms import NewComment, NewSubcomment
-
 # Alerts
 from django.contrib import messages
 
@@ -30,7 +27,6 @@ def home(request):
 @login_required(login_url="login/")
 def topic_detail_view(request, pk, user_id):
     if request.method == "POST":
-        form = NewComment(request.POST)
         topic = Topics.objects.get(pk=pk)
         user = User.objects.get(id=user_id)
         topic_comments = Comments.objects.filter(topic=topic)
@@ -49,15 +45,14 @@ def topic_detail_view(request, pk, user_id):
                 subcomment.save()
 
         # If a comment was created
-        if form.is_valid():
-            Comments.objects.create(content=form.cleaned_data["comment"], author=user, topic=topic)
+        if request.POST.get("btn_comment") == "comment_pressed":
+            Comments.objects.create(content=request.POST.get("new_comment"), author=user, topic=topic)
             messages.success(request, "Comment created")
-        return render(request, "blog/topic.html", {"form":form, "topic_comments":topic_comments, "topic":topic, "subcomments":subcomments})
+        return render(request, "blog/topic.html", {"topic_comments":topic_comments, "topic":topic, "subcomments":subcomments})
     else:
-        form = NewComment()
         topic = Topics.objects.get(pk=pk)
         topic_comments = Comments.objects.filter(topic=topic)
-        return render(request, "blog/topic.html", {"form":form, "topic":topic, "topic_comments":topic_comments})
+        return render(request, "blog/topic.html", {"topic":topic, "topic_comments":topic_comments})
 
 #class TopicDetailView(LoginRequiredMixin, DetailView):
 #    model = Topics

@@ -34,10 +34,10 @@
                     </li>
                     {% if user.username|length == 0 %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
+                        <a class="nav-link" href="#about">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="register">Sign Up</a>
+                        <a class="nav-link" href="{% url 'register' %}">Sign Up</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'login' %}">Sign In</a>
@@ -47,6 +47,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item ml-md-4">
+                        <a class="nav-link btn btn-primary" href="{% url 'login' %}">Post Anything</a>
                     </li>
                     {% endif %}
                     {% if user.username|length > 0 %}
@@ -59,18 +62,15 @@
                         <a class="nav-link" href="{% url 'my_read_topics' user.id %}">My Topics</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'my_profile' user.pk %}">My Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'update_user' %}">Update Account</a>
+                        <a class="nav-link" href="{% url 'update_user' %}">My Profile</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
                     </li>
-                    {% endif %}
                     <li class="nav-item ml-md-4">
-                        <a class="nav-link btn btn-primary" href="{% url 'login' %}">Post Anything</a>
+                        <a class="nav-link btn btn-primary" href="{% url 'topic_detail' user.profile.topics_read.all|length user.id %}">Post Anything</a>
                     </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
@@ -96,6 +96,8 @@
         </div>      
     </header><!-- End of Page Header -->
     {% endblock main %}
+
+    {% block extra %}{% endblock extra %}
 
     {% block about %}
     <!-- About Section -->
@@ -152,28 +154,6 @@
         </div><!-- End of Container-->      
     </section><!-- End of Section -->
     {% endblock about_two %}
-
-    {% block video %}
-    <!-- Features Section -->
-    <section class="has-bg-img" id="features">
-        <div class="overlay"></div>
-        <!-- Button trigger modal -->
-        <a data-toggle="modal" href="#exampleModalCenter">
-            <i></i>
-        </a>
-
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div class="modal-content">
-                     <iframe width="100%" height="450px" class="border-0" 
-                    src="https://www.youtube.com/embed/tgbNyZ7vqY?controls=0">
-                    </iframe>
-                </div>
-            </div>
-        </div><!-- End of Modal -->     
-    </section><!-- End of features Section -->  
-    {% endblock video %}
 
     {% block english_teachers %}
     <!-- Testmonial Section -->
@@ -264,22 +244,41 @@
                     <li class="list-head">
                         <h6 class="font-weight-bold">USEFUL LINKS</h6>
                     </li>
+                    {% if user.username|length == 0 %}
                     <li class="list-body">
                         <div class="row">
                             <div class="col">
-                                <a href="#">Link 1</a>
-                                <a href="#">Link 2</a>
-                                <a href="#">Link 3</a>
-                                <a href="#">Link 4</a>
+                                <a href="{% url 'register' %}">Sign Up</a>
+                                <a href="{% url 'login' %}">Sign In</a>
+                                <a href="#about">About Us</a>
+                                <a href="#teachers">Teachers</a>
                             </div>
                             <div class="col">
-                                <a href="#">Link 5</a>
+                                <a href="#contact">Contact</a>
+                                <!--
                                 <a href="#">Link 6</a>
                                 <a href="#">Link 7</a>
-                                <a href="#">Link 8</a>
+                                <a href="#">Link 8</a>-->
                             </div>
                         </div>
                     </li>
+                    {% else %}
+                    <li class="list-body">
+                        <div class="row">
+                            <div class="col">
+                                <a href="{% url 'topic_detail' user.profile.topics_read.all|length user.id %}">Current Topic</a>
+                                <a href="{% url 'update_user' %}">My Profile</a>
+                            </div>
+                            <div class="col">
+                                <a href="{% url 'my_read_topics' user.id %}">My Topics</a>
+                                <!--
+                                <a href="#">Link 6</a>
+                                <a href="#">Link 7</a>
+                                <a href="#">Link 8</a>-->
+                            </div>
+                        </div>
+                    </li>
+                    {% endif %}
                 </ul>
                 <ul class="list">
                     <li class="list-head">
@@ -287,15 +286,12 @@
                     </li>
                     <li class="list-body">
                         <p>Contact us and we'll get back to you within 24 hours.</p>
-                        <p><i class="ti-location-pin"></i> 12345 Fake ST NoWhere AB Country</p>
-                        <p><i class="ti-email"></i>  info@website.com</p>
+                        <p><i class="ti-location-pin"></i> Medellín, Colombia</p>
+                        <p><i class="ti-email"></i>  strovosky@gmail.com</p>
                         <div class="social-links">
-                            <a href="javascript:void(0)" class="link"><i class="ti-facebook"></i></a>
-                            <a href="javascript:void(0)" class="link"><i class="ti-twitter-alt"></i></a>
-                            <a href="javascript:void(0)" class="link"><i class="ti-google"></i></a>
-                            <a href="javascript:void(0)" class="link"><i class="ti-pinterest-alt"></i></a>
-                            <a href="javascript:void(0)" class="link"><i class="ti-instagram"></i></a>
-                            <a href="javascript:void(0)" class="link"><i class="ti-rss"></i></a>
+                            <a href="https://www.facebook.com/strovosky/" class="link"><i class="ti-facebook"></i></a>
+                            <a href="https://www.instagram.com/strovosky/" class="link"><i class="ti-instagram"></i></a>
+                            <a href="https://github.com/Strovosky" class="link"><i class="ti-rss"></i></a>
                         </div>
                     </li>
                 </ul> 

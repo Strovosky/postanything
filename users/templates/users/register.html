@@ -2,39 +2,6 @@
 
 {% block title %}Register{% endblock title %}
 
-{% block navbar %}
-<!-- Page Navbar -->
-<nav id="scrollspy" class="navbar page-navbar navbar-light navbar-expand-md fixed-top" data-spy="affix" data-offset-top="20">
-    <div class="container">
-        <a class="navbar-brand" href="{% url 'blog_home' %}"><strong class="text-primary">Post</strong> <span class="text-dark">Anything</span></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#about">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#testmonial">Testimonial</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#contact">Contact</a>
-                </li>
-                <li class="nav-item ml-md-4">
-                    <a class="nav-link btn btn-primary" href="{% url 'login' %}">Log In</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav><!-- End of Page Navbar -->   
-{% endblock navbar %}
-
-
 {% block main %}
 <!-- Page Header -->
 <header id="home" class="header">
@@ -49,8 +16,8 @@
 
 {% load crispy_forms_tags %}
 
-{% block about %}
-<section id="about">
+{% block extra %}
+<section id="extra">
     <div class="container">
         <div class="about-wrapper">
             <label><h4>Sign Up</h4></label>
@@ -65,7 +32,5 @@
         </div>
     </div>
 </section>
-{% endblock %}
-{% block about_two %}{% endblock %}
-{% block video %}{% endblock %}
-{% block english_teachers %}{% endblock %}
+{% endblock extra %}
+
