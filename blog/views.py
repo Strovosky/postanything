@@ -1,9 +1,5 @@
 from django.shortcuts import render
 
-# For Class-based Views
-from django.views.generic import DetailView
-from django.contrib.auth.mixins import LoginRequiredMixin
-
 # Models
 from .models import Subcomments, Topics, Comments
 from django.contrib.auth.models import User
@@ -11,9 +7,9 @@ from django.contrib.auth.models import User
 # Alerts
 from django.contrib import messages
 
+# Security
 from django.contrib.auth.decorators import login_required
 
-# Create your views here.
 
 def home(request):
     return render(request, 'blog/index.html')
@@ -24,7 +20,7 @@ def home(request):
 
 # We will use a function view instead of a class view cuz we neeed the view to handle GET and POST 
 # requests since we'll be creating comments.
-@login_required(login_url="login/")
+@login_required(login_url="/login/")
 def topic_detail_view(request, pk, user_id):
     if request.method == "POST":
         topic = Topics.objects.get(pk=pk)
@@ -54,19 +50,12 @@ def topic_detail_view(request, pk, user_id):
         topic_comments = Comments.objects.filter(topic=topic)
         return render(request, "blog/topic.html", {"topic":topic, "topic_comments":topic_comments})
 
-#class TopicDetailView(LoginRequiredMixin, DetailView):
-#    model = Topics
-#    template_name: str = "blog/topic.html"
 
-#@login_required(login_url="login/")
-#def topic_detail(request):
-#    topics = Topics.objects.all()
-#    return render(request, "blog/topic.html", {"topics": topics})
-
-@login_required(login_url="login/")
+@login_required(login_url="/login/")
 def my_read_topics(request, user_id):
     user = User.objects.get(id=user_id)
     return render(request, "blog/my_topics.html", {"topics":user.profile.topics_read.all()})
+
 
 ###################################################################
 # Comment Views

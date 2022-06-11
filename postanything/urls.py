@@ -18,22 +18,23 @@ from django.urls import path, include
 # This imports have to do with managing images
 from django.conf import settings
 from django.conf.urls.static import static
+
+# import for the user
 from users.views import register
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LogoutView
 from users.views import login_view, update_user, ProfileDetailView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),
     path('register/', view=register, name='register'),
-    #path('login/', view=LoginView.as_view(template_name="users/login.html"), name='login'),
     path('login/', view=login_view, name='login'),
     path('logout/', view=LogoutView.as_view(template_name="users/logout.html"), name='logout'),
     path('update_user/', view=update_user, name='update_user'),
     path('my-profile/<int:pk>', view=ProfileDetailView.as_view(), name="my_profile")
 ]
 
-# This conditional has to do with managing images, but just during development.
+# This conditional will render the images and static files only during development.
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
