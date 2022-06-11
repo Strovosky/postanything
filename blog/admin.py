@@ -1,8 +1,7 @@
 from django.contrib import admin
-from .models import Topics, Comments, Encouragements
+from .models import Topics, Comments
 
-# Register your models here.
+# Models registered
 
 admin.site.register(Topics)
 admin.site.register(Comments)
-admin.site.register(Encouragements)

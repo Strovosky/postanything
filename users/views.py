@@ -1,23 +1,28 @@
 # Python built-in views
 from datetime import date
 
-from django.shortcuts import render, redirect
+# Forms
 from .forms import RegistrationForm, UserUpdateForm, ProfileUpdateForm
 
-#This class will let us create an authentication form.
+# Manual Login required imports
 from django.contrib.auth.forms import AuthenticationForm
-# This function will let us log the user
-from django.contrib.auth import login
+from django.contrib.auth import login # This function will let us log the user
 
 # Django Views
 from django.views.generic import DetailView
 
-from django.contrib import messages
+# Models
 from .models import Topics
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
-# Create your views here.
+# Others
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
+
+######################################################################################
+# SingUp
 
 def register(request):
     if request.method == "POST":
@@ -30,6 +35,10 @@ def register(request):
     else:
         form = RegistrationForm()
         return render(request, "users/register.html", {"form":form})
+
+
+########################################################################################
+# LogIn
 
 # We have to create a function view instead of the built-in Login view
 # because we want to redirect to a very specifi url with a pk as an argument.
@@ -73,6 +82,10 @@ def login_view(request):
         form = AuthenticationForm()
         return render(request, "users/login_manual.html", {"form":form})
 
+
+########################################################################################
+# Update
+
 @login_required(login_url="/login/")
 def update_user(request):
     if request.method == "POST":
@@ -87,6 +100,9 @@ def update_user(request):
         profile_update_form = ProfileUpdateForm()
     return render(request, "users/update_user.html", {"user_form": user_update_form, "profile_form":profile_update_form})
 
+
+########################################################################################
+# User Profile
 
 class ProfileDetailView(DetailView):
     model = User

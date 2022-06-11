@@ -1,7 +1,6 @@
-from django.db.models import Model, CharField, IntegerField, DateTimeField, ForeignKey, ManyToManyField, CASCADE
+from django.db.models import Model, CharField, IntegerField, DateTimeField, ForeignKey, CASCADE
 from django.contrib.auth.models import User
 
-# Create your models here.
 
 # This model will handle the topic people will discuss.
 class Topics(Model):
@@ -36,14 +35,3 @@ class Subcomments(Model):
 
     def __str__(self) -> str:
         return f"{self.content}"
-
-##########################################################
-
-# This model will handle some messages left on the page to the developer.
-class Encouragements(Model):
-    content = CharField(max_length=400)
-    date_created = DateTimeField(auto_now=True)
-
-    def __str__(self) -> str:
-        return f"{self.content}"
-

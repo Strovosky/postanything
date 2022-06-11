@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-# This imports have to do with managing images
+
+# This imports have to do with managing images and static files
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -24,6 +25,10 @@ from users.views import register
 from django.contrib.auth.views import LogoutView
 from users.views import login_view, update_user, ProfileDetailView
 
+# Import for password reset
+from django.contrib.auth.views import PasswordResetView
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),
@@ -31,7 +36,12 @@ urlpatterns = [
     path('login/', view=login_view, name='login'),
     path('logout/', view=LogoutView.as_view(template_name="users/logout.html"), name='logout'),
     path('update_user/', view=update_user, name='update_user'),
-    path('my-profile/<int:pk>', view=ProfileDetailView.as_view(), name="my_profile")
+    path('my-profile/<int:pk>', view=ProfileDetailView.as_view(), name="my_profile"),
+    # I specify the template_name so that I can tell django where to find this template.
+    # Otherwise, it will search for it in the default location.
+    path('password-reset/',
+        view=PasswordResetView.as_view(template_name="users/password_reset.html"),
+        name="password_reset")
 ]
 
 # This conditional will render the images and static files only during development.

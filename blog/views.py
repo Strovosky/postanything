@@ -18,8 +18,8 @@ def home(request):
 ###################################################################
 # Topic Views
 
-# We will use a function view instead of a class view cuz we neeed the view to handle GET and POST 
-# requests since we'll be creating comments.
+    # We will use a function view instead of a class view cuz we neeed the view to handle GET and POST 
+    # requests since we'll be creating comments.
 @login_required(login_url="/login/")
 def topic_detail_view(request, pk, user_id):
     if request.method == "POST":
@@ -50,7 +50,7 @@ def topic_detail_view(request, pk, user_id):
         topic_comments = Comments.objects.filter(topic=topic)
         return render(request, "blog/topic.html", {"topic":topic, "topic_comments":topic_comments})
 
-
+    # This function view shows all the topics a user has read.
 @login_required(login_url="/login/")
 def my_read_topics(request, user_id):
     user = User.objects.get(id=user_id)
@@ -60,6 +60,7 @@ def my_read_topics(request, user_id):
 ###################################################################
 # Comment Views
 
+    # This function view shows the info of a specifi comment.
 def detail_comment(request, pk, topic_id):
     comment = Comments.objects.get(pk=pk)
     topic = Topics.objects.get(id=topic_id)
