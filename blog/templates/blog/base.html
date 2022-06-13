@@ -77,19 +77,18 @@
     </nav><!-- End of Page Navbar -->   
     {% endblock navbar %}
 
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-{{message.tags}}" >
-                {{message}}
-            </div>
-        {% endfor %}
-    {% endif %}
-    
     {% block main %}
     <!-- Page Header -->
     <header id="home" class="header">
         <div class="overlay"></div>
         <div class="header-content">
+            {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{message.tags}}" >
+                    {{message}}
+                </div>
+            {% endfor %}
+            {% endif %}   
             <p>Best place to improve your writing.</p>
             <h6>Post Anything</h6>
             <a class="btn btn-outline-light" href="{% url 'login' %}">Start Posting</a> 

@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from unicodedata import name
 from django.contrib import admin
 from django.urls import path, include
 
@@ -26,7 +27,7 @@ from django.contrib.auth.views import LogoutView
 from users.views import login_view, update_user, ProfileDetailView
 
 # Import for password reset
-from django.contrib.auth.views import PasswordResetView
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 
 
 urlpatterns = [
@@ -41,7 +42,16 @@ urlpatterns = [
     # Otherwise, it will search for it in the default location.
     path('password-reset/',
         view=PasswordResetView.as_view(template_name="users/password_reset.html"),
-        name="password_reset")
+        name="password_reset"),
+    path('password-reset/done/',
+        view=PasswordResetDoneView.as_view(template_name="users/password_reset_done.html"),
+        name="password_reset_done"),
+    path('password-reset-confirm/<uidb64>/<token>/',
+        view=PasswordResetConfirmView.as_view(template_name="users/password_reset_confirm.html"),
+        name="password_reset_confirm"),
+    path('password-reset-complete/',
+        view=PasswordResetCompleteView.as_view(template_name="users/password_reset_complete.html"),
+        name="password_reset_complete")
 ]
 
 # This conditional will render the images and static files only during development.
