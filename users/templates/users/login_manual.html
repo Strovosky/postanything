@@ -7,6 +7,13 @@
 <header id="home" class="header">
     <div class="overlay"></div>
     <div class="header-content" id="login">
+        {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{message.tags}}" >
+                {{message}}
+            </div>
+        {% endfor %}
+        {% endif %}
         <h2><strong class="text-primary">Sign</strong> <span class="text-dark">In</span></h2>
         <form method="post" class="form-horizontal" name="LoginForm">
             {% csrf_token %}

@@ -7,6 +7,13 @@
 <header id="home" class="header">
     <div class="overlay"></div>
     <div class="header-content">
+        {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{message.tags}}" >
+                {{message}}
+            </div>
+        {% endfor %}
+        {% endif %}
         <img src="{{user.profile.profile_pic.url}}" alt="{{user.username}}">
         <h3>{{topic.content}}</h3>
         <form method="post">
