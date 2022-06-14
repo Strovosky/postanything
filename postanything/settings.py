@@ -25,7 +25,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG_VALUE")
+# DEBUG = os.getenv("DEBUG_VALUE")
+DEBUG = False 
 
 ALLOWED_HOSTS = ['https://youpostanything.herokuapp.com/']
 
@@ -33,14 +34,14 @@ ALLOWED_HOSTS = ['https://youpostanything.herokuapp.com/']
 # Application definition
 
 INSTALLED_APPS = [
+    'blog.apps.BlogConfig',
+    'users.apps.UsersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog.apps.BlogConfig',
-    'users.apps.UsersConfig',
     'crispy_forms'
 ]
 
