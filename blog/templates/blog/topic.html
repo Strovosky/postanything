@@ -38,6 +38,7 @@
                 <p></p>
                 <!--In this case I'm using a general form just because I wanted to practice not using a Django form-->
                 <form method="post" action="#">
+                    {% csrf_token %}
                     <label for="comment">
                         <input type="text" id="comment" name="txt_subcomment" />
                         <button type="submit" class="btn btn-warning" name="btn_subcomment" value="{{comment.id}}" >Comment</button>
