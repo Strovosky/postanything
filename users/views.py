@@ -58,7 +58,7 @@ def login_view(request):
             elif user.profile.started_reading != None and user.profile.started_reading != date.today():
                 # I have to create a time delta to see how many days of difference.
                 days_of_difference = date.today() - user.profile.started_reading
-                topic = Topics.objects.get(id= 1 + days_of_difference)
+                topic = Topics.objects.get(id= 1 + days_of_difference.days)
                 #for ind, day in enumerate(range(days_of_difference.days), start=1):
                 #    temp_topic = Topics.objects.get(id=ind)
                 #    if temp_topic not in user.profile.topics_read:
