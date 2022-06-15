@@ -58,18 +58,18 @@ def login_view(request):
             elif user.profile.started_reading != None and user.profile.started_reading != date.today():
                 # I have to create a time delta to see how many days of difference.
                 days_of_difference = date.today() - user.profile.started_reading
-                for ind in range(days_of_difference.days):
-                    temp_topic = Topics.objects.get(id=ind)
-                    if temp_topic not in user.profile.topics_read:
-                        user.profile.topics_read.add(temp_topic)
+                topic = Topics.objects.get(id= 1 + days_of_difference)
+                #for ind, day in enumerate(range(days_of_difference.days), start=1):
+                #    temp_topic = Topics.objects.get(id=ind)
+                #    if temp_topic not in user.profile.topics_read:
+                #        user.profile.topics_read.add(temp_topic)
+                user.profile.topics_read.add(topic)
                 user.profile.save()
-                topic = Topics.objects.get(id=user.profile.topics_read.count())
             else:
-                first_topic = Topics.objects.get(pk=1)
+                topic = Topics.objects.get(pk=1)
                 user.profile.started_reading = date.today()
-                user.profile.topics_read.add(first_topic)
+                user.profile.topics_read.add(topic)
                 user.profile.save()
-                topic = Topics.objects.get(id=user.profile.topics_read.count())
             return redirect(to=f"/topic/{topic.pk}/{user.id}")
         else:
             # This is important so in case the user types a wrong username or password
