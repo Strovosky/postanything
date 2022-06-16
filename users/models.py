@@ -26,12 +26,15 @@ class Profile(Model):
         return f"Profile: {self.user}"
     
     # To resize the imgage if it is too big
-    def save(self, *args, **kwargs):
-        super(Profile, self).save(*args, **kwargs)
+    # This works well in divelopment but it won't work if you're using S3 AWS.
+    # If you wanna create this for S3, you can do it with a Lamba Function in AWS.
+    
+    #def save(self, *args, **kwargs):
+    #    super(Profile, self).save(*args, **kwargs)
 
-        img = Image.open(self.profile_pic.path)
+    #    img = Image.open(self.profile_pic.path)
 
-        if img.height > 300 or img.width > 300:
-            output_size = (300, 300)
-            img.thumbnail(output_size)
-            img.save(self.profile_pic.path)
+    #    if img.height > 300 or img.width > 300:
+    #        output_size = (300, 300)
+    #        img.thumbnail(output_size)
+    #        img.save(self.profile_pic.path)
