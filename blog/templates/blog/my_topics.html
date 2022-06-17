@@ -7,7 +7,7 @@
         <div class="header-content">
             <img src="{{user.profile.profile_pic.url}}" alt="{{user.username}}">
             <h6>My Topics</h6> 
-            <a class="btn btn-outline-light" href="{% url 'topic_detail' user.profile.topics_read.count user.id %}">Start Posting</a> 
+            <a class="btn btn-outline-light" href="{% url 'blog:topic_detail' user.profile.topics_read.count user.id %}">Start Posting</a> 
         </div>      
     </header><!-- End of Page Header -->
 
@@ -18,7 +18,7 @@
                 <div class="content">
                     <div class="row">
                         <div class="col">
-                            <a href="{% url 'topic_detail' topic.pk user.id %}"><h5 class="title mb-3">{{topic.content}}</h5></a>
+                            <a href="{% url 'blog:topic_detail' topic.pk user.id %}"><h5 class="title mb-3">{{topic.content}}</h5></a>
                         </div>
                     </div>
                 </div>

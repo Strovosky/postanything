@@ -22,7 +22,7 @@
     <!-- Page Navbar -->
     <nav id="scrollspy" class="navbar page-navbar navbar-light navbar-expand-md fixed-top" data-spy="affix" data-offset-top="20">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'blog_home' %}"><strong class="text-primary">Post</strong> <span class="text-dark">Anything</span></a>
+            <a class="navbar-brand" href="{% url 'blog:blog_home' %}"><strong class="text-primary">Post</strong> <span class="text-dark">Anything</span></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -54,12 +54,12 @@
                     {% endif %}
                     {% if user.username|length > 0 %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'topic_detail' user.profile.topics_read.all|length user.id %}">Current Topic</a>
+                        <a class="nav-link" href="{% url 'blog:topic_detail' user.profile.topics_read.all|length user.id %}">Current Topic</a>
                     </li>
                     <!--For some reason, My Profile, after we visit another user's profile
                     refreshes back to their profile and the the current user's-->
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'my_read_topics' user.id %}">My Topics</a>
+                        <a class="nav-link" href="{% url 'blog:my_read_topics' user.id %}">My Topics</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'update_user' %}">My Profile</a>
@@ -68,7 +68,7 @@
                         <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
                     </li>
                     <li class="nav-item ml-md-4">
-                        <a class="nav-link btn btn-primary" href="{% url 'topic_detail' user.profile.topics_read.all|length user.id %}">Post Anything</a>
+                        <a class="nav-link btn btn-primary" href="{% url 'blog:topic_detail' user.profile.topics_read.all|length user.id %}">Post Anything</a>
                     </li>
                     {% endif %}
                 </ul>
@@ -265,11 +265,11 @@
                     <li class="list-body">
                         <div class="row">
                             <div class="col">
-                                <a href="{% url 'topic_detail' user.profile.topics_read.all|length user.id %}">Current Topic</a>
+                                <a href="{% url 'blog:topic_detail' user.profile.topics_read.all|length user.id %}">Current Topic</a>
                                 <a href="{% url 'update_user' %}">My Profile</a>
                             </div>
                             <div class="col">
-                                <a href="{% url 'my_read_topics' user.id %}">My Topics</a>
+                                <a href="{% url 'blog:my_read_topics' user.id %}">My Topics</a>
                                 <!--
                                 <a href="#">Link 6</a>
                                 <a href="#">Link 7</a>
